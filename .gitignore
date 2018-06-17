@@ -16,6 +16,14 @@
 .env.test.local
 .env.production.local
 
+#some local files
+*/.settings/
+*/.DS_Store
+.DS_Store
+*/.idea/
+.idea/
+unused.txt
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
