@@ -1,5 +1,10 @@
-import React,{Component} from 'react'
-import { Link ,NavLink} from 'react-router-dom'
+/**
+ * @author MrJane
+ * @date 2018/6/18
+ * @Description:
+*/
+import React,{Component}    from 'react'
+import { Link ,NavLink}     from 'react-router-dom'
 class SideNav extends Component{
     render(){
         return(
@@ -15,7 +20,7 @@ class SideNav extends Component{
                             </li>
                             <li className="active">
                                 <Link to="/product">
-                                    <i className="fa fa-sitemap"></i>
+                                    <i className="fa fa-list"></i>
                                     <span className="fa arrow"></span>
                                     <span>商品</span>
                                 </Link>
@@ -29,31 +34,28 @@ class SideNav extends Component{
                                 </ul>
                             </li>
                             <li className="active">
-                                <Link to="/">
-                                    <i className="fa fa-sitemap"></i>
+                                <Link to="/order">
+                                    <i className="fa fa-check-square-o"></i>
                                     <span className="fa arrow"></span>
                                     <span>订单</span>
                                 </Link>
                                 <ul className="nav nav-second-level collapse in">
                                     <li>
-                                        <Link to="/" >订单管理</Link>
+                                        <NavLink to="/order" activeClassName="active-menu" >订单管理</NavLink>
                                     </li>
                                 </ul>
                             </li>
                             <li className="active">
-                                <Link to="/">
-                                    <i className="fa fa-sitemap"></i>
+                                <Link to="/user">
+                                    <i className="fa fa-user-o"></i>
                                     <span className="fa arrow"></span>
                                     <span>用户</span>
                                 </Link>
                                 <ul className="nav nav-second-level collapse in">
                                     <li>
-                                        <Link to="/" >用户管理</Link>
+                                        <NavLink to="/user" activeClassName="active-menu">用户管理</NavLink>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="empty.html"><i className="fa fa-fw fa-file"></i> Empty Page</a>
                             </li>
                         </ul>
                     </div>

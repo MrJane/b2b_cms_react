@@ -1,3 +1,8 @@
+/**
+ * @author MrJane
+ * @date 2018/6/18
+ * @Description:
+*/
 import React,{Component} from 'react'
 //导入组件
 import SideNav from '../SideNav'
