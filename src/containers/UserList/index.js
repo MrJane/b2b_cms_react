@@ -2,14 +2,26 @@
  * @author MrJane
  * @date 2018/6/18
  * @Description:
-*/
+ */
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import PageTitle from '../../component/PageTitle';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/dist/rc-pagination.css'
 
+import User from '../../service/userService'
+import Util from '../../util'
+const _user = new User();
+const _util = new Util();
 class UserList extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            pageNum : 1
+        }
+        this.loadUserList=this.loadUserList.bind(this)
+    }
+
     render() {
         return (
             <div id="page-wrapper">
@@ -52,6 +64,18 @@ class UserList extends Component {
 
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.loadUserList();
+    }
+
+    loadUserList() {
+        _user.getUserList(this.state.pageNum).then(res=>{
+            this.setState(res)
+        },errMsg=>{
+            _util.errorTips(errMsg)
+        });
     }
 }
 
