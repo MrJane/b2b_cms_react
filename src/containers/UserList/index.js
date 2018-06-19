@@ -17,9 +17,11 @@ class UserList extends Component {
     constructor(props){
         super(props);
         this.state={
+            list:[],
             pageNum : 1
         }
         this.loadUserList=this.loadUserList.bind(this)
+        // this.onPageNumChange=this.onPageNumChange.bind(this)
     }
 
     render() {
@@ -31,35 +33,32 @@ class UserList extends Component {
                         <table className="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th>你好</th>
-                                <th>你好</th>
-                                <th>你好</th>
-                                <th>你好</th>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>邮箱</th>
+                                <th>电话</th>
+                                <th>注册时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                            </tr>
-                            <tr>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                            </tr>
-                            <tr>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                                <td>好啊</td>
-                            </tr>
+                            {
+                                this.state.list.map(function (user,index) {
+                                    return(
+                                        <tr key={index}>
+                                            <td>{ user.id}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.phone}</td>
+                                            <td>{user.createTime}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+
                             </tbody>
                         </table>
                     </div>
-                    <Pagination current={1} total={10}></Pagination>
+                    <Pagination current={this.state.pageNum} total={this.state.total} onChange={(pageNum)=>this.onPageNumChange(pageNum)} showQuickJumper hideOnSinglePage></Pagination>
                 </div>
 
             </div>
@@ -69,10 +68,17 @@ class UserList extends Component {
     componentDidMount() {
         this.loadUserList();
     }
-
+    onPageNumChange(pageNum){
+        this.setState({
+            pageNum:pageNum
+        },function () {
+            this.loadUserList();
+        })
+    }
     loadUserList() {
         _user.getUserList(this.state.pageNum).then(res=>{
-            this.setState(res)
+            this.setState(res);
+            console.log(this.state)
         },errMsg=>{
             _util.errorTips(errMsg)
         });
