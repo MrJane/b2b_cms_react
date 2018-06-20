@@ -4,7 +4,6 @@
  * @Description:
  */
 import Util from '../util/index'
-import $ from 'jquery'
 const _util = new Util();
 
 class Product {

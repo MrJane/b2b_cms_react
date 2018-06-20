@@ -19,17 +19,17 @@ class SideNav extends Component{
                                 </NavLink>
                             </li>
                             <li className="active">
-                                <Link to="/product">
+                                <Link to="/product/index">
                                     <i className="fa fa-list"></i>
                                     <span className="fa arrow"></span>
                                     <span>商品</span>
                                 </Link>
                                 <ul className="nav nav-second-level collapse in">
                                     <li>
-                                        <NavLink to="/product" activeClassName="active-menu">商品管理</NavLink>
+                                        <NavLink to="/product/index" activeClassName="active-menu">商品管理</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/product.category" activeClassName="active-menu">品类管理</NavLink>
+                                        <NavLink to="/product/category" activeClassName="active-menu">品类管理</NavLink>
                                     </li>
                                 </ul>
                             </li>

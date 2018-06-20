@@ -7,6 +7,8 @@ import Home     from './containers/Home'
 import Login    from './containers/Login'
 import Error    from './containers/Error'
 import UserList from './containers/UserList'
+import ProductList  from './containers/Product/product'
+import Category from './containers/Product/category'
 
 class App extends Component {
     render() {
@@ -18,7 +20,9 @@ class App extends Component {
                         <Layout>
                             <Switch>
                                 <Route exact path="/" component={Home}/>
-                                <Route path="/product" component={Home}/>
+                                <Route path="/product/index" component={ProductList}/>
+                                <Route path="/product/category" component={Category}/>
+                                <Redirect from="/product" to="/product/index"/>
                                 <Route path="/user/index" component={UserList}/>
                                 <Route exact from="/user" to="/user/index" component={UserList}/>
                                 <Route path="/order" component={Home}/>

@@ -11,20 +11,39 @@ import 'rc-pagination/dist/rc-pagination.css'
 
 import User from '../../service/userService'
 import Util from '../../util'
+
 const _user = new User();
 const _util = new Util();
+
 class UserList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            list:[],
-            pageNum : 1
+        this.state = {
+            list: [],
+            pageNum: 1,
+            firstLoading:true
         }
-        this.loadUserList=this.loadUserList.bind(this)
+        this.loadUserList = this.loadUserList.bind(this)
         // this.onPageNumChange=this.onPageNumChange.bind(this)
     }
 
     render() {
+        let listBody = this.state.list.map(function (user, index) {
+            return (
+                <tr key={index}>
+                    <td>{user.id}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone}</td>
+                    <td>{new Date(user.createTime).toLocaleString()}</td>
+                </tr>
+            )
+        });
+        let listError = (
+            <tr >
+                <td colSpan="5" className="text-center">{this.state.firstLoading?'正在加载数据中.....':'没有找到相应的结果...'}</td>
+            </tr>
+        )
         return (
             <div id="page-wrapper">
                 <PageTitle title="用户列表"/>
@@ -42,23 +61,15 @@ class UserList extends Component {
                             </thead>
                             <tbody>
                             {
-                                this.state.list.map(function (user,index) {
-                                    return(
-                                        <tr key={index}>
-                                            <td>{ user.id}</td>
-                                            <td>{user.username}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.phone}</td>
-                                            <td>{user.createTime}</td>
-                                        </tr>
-                                    )
-                                })
+                                this.state.list.length > 0 ? listBody : listError
                             }
 
                             </tbody>
                         </table>
                     </div>
-                    <Pagination current={this.state.pageNum} total={this.state.total} onChange={(pageNum)=>this.onPageNumChange(pageNum)} showQuickJumper hideOnSinglePage></Pagination>
+                    <Pagination current={this.state.pageNum} total={this.state.total}
+                                onChange={(pageNum) => this.onPageNumChange(pageNum)} showQuickJumper
+                                hideOnSinglePage></Pagination>
                 </div>
 
             </div>
@@ -68,18 +79,24 @@ class UserList extends Component {
     componentDidMount() {
         this.loadUserList();
     }
-    onPageNumChange(pageNum){
+
+    onPageNumChange(pageNum) {
         this.setState({
-            pageNum:pageNum
-        },function () {
+            pageNum: pageNum
+        }, function () {
             this.loadUserList();
         })
     }
+
     loadUserList() {
-        _user.getUserList(this.state.pageNum).then(res=>{
-            this.setState(res);
+        _user.getUserList(this.state.pageNum).then(res => {
+            this.setState(res,()=>{
+                this.setState({
+                    firstLoading:false
+                })
+            });
             console.log(this.state)
-        },errMsg=>{
+        }, errMsg => {
             _util.errorTips(errMsg)
         });
     }
