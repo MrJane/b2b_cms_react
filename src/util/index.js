@@ -2,7 +2,7 @@
  * @author MrJane
  * @date 2018/6/18
  * @Description:
-*/
+ */
 import $ from 'jquery'
 
 class MUtil {
@@ -44,34 +44,41 @@ class MUtil {
         return result ? decodeURIComponent(result[2]) : null;
     }
 
+    successTips(msg) {
+        alert(msg||'操作成功')
+    }
+
     errorTips(errMsg) {
         alert(errMsg || '好像哪里不对了')
     }
+
     //存储
     setStorage(name, data) {
         let dataType = typeof data;
         if (dataType === 'object') {
             window.localStorage.setItem(name, JSON.stringify(data))
         }
-        else if(['number','string','boolean'].indexOf(dataType)>=0){
+        else if (['number', 'string', 'boolean'].indexOf(dataType) >= 0) {
             window.localStorage.setItem(name, data)
         }
         else {
             alert('该类型不支持本地存储');
         }
     }
-   //获取存储
-    getStorage(name){
+
+    //获取存储
+    getStorage(name) {
         let data = window.localStorage.getItem(name);
-        if(data){
+        if (data) {
             return JSON.parse(data)
         }
         else {
             return ''
         }
     }
+
     //删除存储
-    removeStorage(name){
+    removeStorage(name) {
         window.localStorage.removeItem(name);
     }
 
